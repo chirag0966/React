@@ -22,6 +22,7 @@
   width: 90%;
   height: 100%;
   display: inline-block;
+  margin: 0;
 }
 
 .listItemNotDone {
@@ -30,12 +31,12 @@
   width: 90%;
   height: 100%;
   display: inline-block;
+  margin: 0;
 }
 
 .deleteButton {
   background: lightcoral;
   color: white;
-  width: 10%;
-  height: 100%;
   float: right;
+  height: 100%;
 }
