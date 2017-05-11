@@ -6,7 +6,6 @@ class TodoAdd extends Component {
     constructor(props) {
         super(props);
 
-        this.addItemMainList = props.addItem;
         this.state = {
             enteredItemValue: ''
         };
@@ -15,7 +14,7 @@ class TodoAdd extends Component {
     addItem = (e) => {
         e.preventDefault();
 
-        this.addItemMainList(this.state.enteredItemValue)
+        this.props.addItem(this.state.enteredItemValue)
         this.updateEnteredValue("");
     };
 
@@ -30,14 +29,14 @@ class TodoAdd extends Component {
     }
 
     render() {
-        return <form className="add-item-form">
+        return <form className="addItemForm">
             <input
-                className="task-input"
+                className="taskInput"
                 type="text"
                 placeholder="Task to do"
                 value={this.state.enteredItemValue}
                 onChange={this.updateTaskEntered}></input>
-            <button className="task-add-button" type="submit" onClick={this.addItem}>+</button>
+            <button className="taskAddButton" type="submit" onClick={this.addItem}>+</button>
         </form>
     }
 }

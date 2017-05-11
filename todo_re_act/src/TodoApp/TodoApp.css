@@ -1,14 +1,14 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-header {
+.appHeader {
   background-color: lightseagreen;
   padding: 5px;
   color: white;
 }
 
-.App-intro {
+.appIntro {
   font-size: large;
   font-weight: bold;
   color: lightseagreen;

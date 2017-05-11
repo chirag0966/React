@@ -9,13 +9,12 @@ export default class TodoItem extends Component {
 		this.state = {isDone: props.isDone};
         
         this.itemIndex = props.itemIndex;
-        this.deleteItemFromMainList = props.deleteItem;
 	}
 
     deleteItem = (e) => {
         e.preventDefault();
 
-        this.deleteItemFromMainList(this.itemIndex);
+        this.props.deleteItem(this.itemIndex);
     }
 
 	render() {
