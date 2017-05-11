@@ -10,15 +10,8 @@
 
 .App-intro {
   font-size: large;
+  font-weight: bold;
   color: lightseagreen;
-  border-bottom: 1px solid lightgrey;
   padding: 10px;
   margin: 0px;
 }
-
-.AddItemForm {
-  width: 100%;
-  padding: 10px;
-  background: lightseagreen;
-}
- 

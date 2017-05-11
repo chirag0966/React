@@ -1,0 +1,23 @@
+.add-item-form {
+    padding: 20px;
+    display: flex;
+    background-color: lightseagreen;
+}
+
+.task-add-button {
+    background-color: transparent;
+    border: 1px white solid;
+    padding: 5px 10px;
+    font-size: 24px;
+    color: white;
+}
+
+.task-input {
+    flex: 1;
+    background-color: white;
+    border: 1px white solid;
+    border-right: none;
+    color: seagreen;
+    padding: 5px 20px;
+    font-size: 14px;
+}

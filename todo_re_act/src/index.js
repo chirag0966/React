@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TODOApp from '././TODOApp';
+import TodoApp from '././TodoApp/TodoApp';
 import './index.css';
 
 ReactDOM.render(
-  <TODOApp/>,
+  <TodoApp/>,
   document.getElementById('root')
 );

@@ -1,0 +1,36 @@
+.myListItem {
+    flex: 1;
+    display: flex;
+  margin-top: 1px;
+  color: white;
+  text-align: left;
+}
+
+.listItemDone {
+  flex-basis: 90%;
+  background: lightseagreen;
+  padding: 10px;
+  color: lightgray; 
+  text-decoration: line-through;
+  margin: 0;
+}
+
+.listItemNotDone {
+  flex-basis: 90%;
+  background: lightsalmon;
+  padding: 10px;
+}
+
+.deleteButton {
+    flex-basis: 5%;
+    background-color: lightcoral;
+    border: none;
+    background-image: url('../assets/icon-delete.png') center center no-repeat;
+}
+
+.editButton {
+    flex-basis: 5%;
+    background-color: lightslategray;
+    border: none;
+    background-image: url('../assets/icon-edit.png') center center no-repeat;
+}
