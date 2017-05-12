@@ -1,39 +1,53 @@
 .myListItem {
     flex: 1;
     display: flex;
-  margin: 1px 0px;
-  padding: 10px 10px;
-  color: lightseagreen;
+    padding: 10px 20px; 
+    padding-bottom: 0;
+}
+
+.myListItem:last-child {
+    padding-bottom: 10px;  
+}
+
+.itemLabel {
+  flex-basis: 90%;  
+  padding: 0 20px;
+  border: none;
   text-align: left;
-  background-color: white;
+  font-size: large;  
 }
 
 .listItemDone {
-  flex-basis: 90%;
-  padding: 10px;
   color: gray; 
   text-decoration: line-through;
-  margin: 0;
 }
 
 .listItemNotDone {
-  flex-basis: 90%;
-  padding: 10px;
+  color: lightseagreen;
 }
 
-.deleteButton {
+.actionButton {
     flex-basis: 5%;
     min-height: 44px;
-    border: none;
-    background: lightcoral url('../assets/icon-delete.png') center center no-repeat;
-    margin-right: 10px; 
-    background-size: 25%;
+    border: none;    
 }
 
 .editButton {
-    flex-basis: 5%;
-    min-height: 44px;
-    border: none;
-    background: lightseagreen url('../assets/icon-edit.png') center center no-repeat;
-    background-size: 25%;
+  background: turquoise url('../assets/icon-edit.png') center center no-repeat;
+  background-size: 33%;
+}
+
+.doneTaskButton {
+  background: lightseagreen url('../assets/icon-done.png') center center no-repeat;
+  background-size: 33%;
+}
+
+.saveButton {
+  background: lightslategray url('../assets/icon-save.png') center center no-repeat;
+  background-size: 33%;
+}
+
+.deleteButton {
+  background: lightcoral url('../assets/icon-delete.png') center center no-repeat;
+  background-size: 33%;
 }
