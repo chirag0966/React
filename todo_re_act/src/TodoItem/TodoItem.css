@@ -1,36 +1,39 @@
 .myListItem {
     flex: 1;
     display: flex;
-  margin-top: 1px;
-  color: white;
+  margin: 1px 0px;
+  padding: 10px 10px;
+  color: lightseagreen;
   text-align: left;
+  background-color: white;
 }
 
 .listItemDone {
   flex-basis: 90%;
-  background: lightseagreen;
   padding: 10px;
-  color: lightgray; 
+  color: gray; 
   text-decoration: line-through;
   margin: 0;
 }
 
 .listItemNotDone {
   flex-basis: 90%;
-  background: lightsalmon;
   padding: 10px;
 }
 
 .deleteButton {
     flex-basis: 5%;
-    background-color: lightcoral;
+    min-height: 44px;
     border: none;
-    background-image: url('../assets/icon-delete.png') center center no-repeat;
+    background: lightcoral url('../assets/icon-delete.png') center center no-repeat;
+    margin-right: 10px; 
+    background-size: 25%;
 }
 
 .editButton {
     flex-basis: 5%;
-    background-color: lightslategray;
+    min-height: 44px;
     border: none;
-    background-image: url('../assets/icon-edit.png') center center no-repeat;
+    background: lightseagreen url('../assets/icon-edit.png') center center no-repeat;
+    background-size: 25%;
 }

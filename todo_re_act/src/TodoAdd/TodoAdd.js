@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './TodoAdd.css';
 
 class TodoAdd extends Component {
@@ -20,12 +20,12 @@ class TodoAdd extends Component {
 
     updateTaskEntered = (e) => {
         e.preventDefault();
-        
+
         this.updateEnteredValue(e.target.value);
     };
 
     updateEnteredValue(value) {
-        this.setState({enteredItemValue: value});
+        this.setState({ enteredItemValue: value });
     }
 
     render() {
