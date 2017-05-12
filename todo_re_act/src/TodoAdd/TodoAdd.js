@@ -14,8 +14,12 @@ class TodoAdd extends Component {
     addItem = (e) => {
         e.preventDefault();
 
-        this.props.addItem(this.state.enteredItemValue)
-        this.updateEnteredValue("");
+        if (this.state.enteredItemValue.trim().length > 0) {
+            this.props.addItem(this.state.enteredItemValue.trim())
+            this.updateEnteredValue("");
+        } else {
+            alert("Please enter some task to add");
+        }
     };
 
     updateTaskEntered = (e) => {

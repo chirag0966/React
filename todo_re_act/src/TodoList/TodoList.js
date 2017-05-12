@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './TodoList.css';
 import TodoItem from '../TodoItem/TodoItem.js';
 
@@ -8,7 +8,11 @@ export default class TodoList extends Component {
         return this
             .props
             .items
-            .map((itemName, index) => <TodoItem key={index} itemIndex={index} name={itemName} isDone={false} deleteItem={this.props.deleteItem}/>);
+            .map((item, index) => <TodoItem key={index} itemIndex={index} item={item}
+                deleteItem={this.props.deleteItem}
+                updateItem={this.props.updateItem}
+                markItem={this.props.markItem}
+            />);
     }
 
     render() {

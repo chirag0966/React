@@ -7,25 +7,29 @@ export default class TodoItem extends Component {
 		super(props);
 
 		this.state = {
-			isDone: props.isDone,
-			isEditingDisabled: true,
-			editedItemValue: this.props.name
+			editedItemValue: props.item.name,
+			isEditingDisabled: true
 		};
 
 		this.itemIndex = props.itemIndex;
 	}
 
-	deleteItem = (e) => {
-		e.preventDefault();
-
-		this.props.deleteItem(this.itemIndex);
+	componentDidUpdate() {
+		if (!this.state.isEditingDisabled) {
+			console.log(this.nameInput);
+			this.nameInput.focus();
+		}
 	}
 
 	render() {
-		let isDoneClassName = this.state.isDone ? "itemLabel listItemDone" : "itemLabel listItemNotDone";
+		let isDoneClassName = this.props.item.isDone ? "itemLabel listItemDone" : "itemLabel listItemNotDone";
 		return <li className="myListItem">
-			<input className={isDoneClassName} type="text" value={this.state.editedItemValue} disabled={this.state.isEditingDisabled}
-				onChange={this.updateEnteredItemValue}></input>
+			<input className={isDoneClassName} type="text" value={this.state.editedItemValue}
+				autoFocus={this.state.isEditingDisabled}
+				disabled={this.state.isEditingDisabled}
+				onChange={this.updateEnteredItemValue}
+				ref={(input) => { this.nameInput = input; }}
+			></input>
 			{this.state.isEditingDisabled
 				? <button className="actionButton editButton" onClick={this.editItem}></button>
 				: <button className="actionButton saveButton" onClick={this.saveItem}></button>}
@@ -34,10 +38,20 @@ export default class TodoItem extends Component {
 		</li>;
 	}
 
+	deleteItem = (e) => {
+		e.preventDefault();
+
+		this.props.deleteItem(this.itemIndex);
+	};
+
 	handleToggleClick = () => {
-		this.setState(prevState => ({
-			isDone: !prevState.isDone
-		}));
+		if (!this.state.isEditingDisabled) {
+			this.setState(prevState => ({
+				isEditingDisabled: !prevState.isEditingDisabled
+			}));
+		}
+
+		this.props.markItem(this.props.itemIndex, this.props.item.isDone);
 	};
 
 	updateEnteredItemValue = (e) => {
@@ -51,8 +65,21 @@ export default class TodoItem extends Component {
 	};
 
 	saveItem = () => {
+
 		this.setState(prevState => ({
 			isEditingDisabled: !prevState.isEditingDisabled
 		}));
+
+		if (this.state.editedItemValue.trim() === this.props.item.name) {
+			console.log("String is not updated");
+			return;
+		}
+
+		if (this.state.editedItemValue.trim().length > 0) {
+			this.props.updateItem(this.props.itemIndex, this.state.editedItemValue);
+		} else {
+			this.setState({ editedItemValue: this.props.item.name });
+			alert("Please enter some task to add");
+		}
 	};
 }
