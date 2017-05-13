@@ -1,85 +1,89 @@
-import React, { Component } from 'react';
-import './TodoItem.css';
+import React, {Component} from "react";
+import "./TodoItem.css";
 
 export default class TodoItem extends Component {
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			editedItemValue: props.item.name,
-			isEditingDisabled: true
-		};
+    this.state = {
+      editedItemValue: props.item.name,
+      isEditingDisabled: true
+    };
 
-		this.itemIndex = props.itemIndex;
-	}
+    this.itemIndex = props.itemIndex;
+  }
 
-	componentDidUpdate() {
-		if (!this.state.isEditingDisabled) {
-			console.log(this.nameInput);
-			this.nameInput.focus();
-		}
-	}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.item.name !== this.state.editedItemValue) {
+      this.setState({editedItemValue: nextProps.item.name});
+    }
+  }
 
-	render() {
-		let isDoneClassName = this.props.item.isDone ? "itemLabel listItemDone" : "itemLabel listItemNotDone";
-		return <li className="myListItem">
-			<input className={isDoneClassName} type="text" value={this.state.editedItemValue}
-				autoFocus={this.state.isEditingDisabled}
-				disabled={this.state.isEditingDisabled}
-				onChange={this.updateEnteredItemValue}
-				ref={(input) => { this.nameInput = input; }}
-			></input>
-			{this.state.isEditingDisabled
-				? <button className="actionButton editButton" onClick={this.editItem}></button>
-				: <button className="actionButton saveButton" onClick={this.saveItem}></button>}
-			<button className="actionButton doneTaskButton" onClick={this.handleToggleClick}></button>
-			<button className="actionButton deleteButton" onClick={this.deleteItem}></button>
-		</li>;
-	}
+  componentDidUpdate() {
+    if (!this.state.isEditingDisabled) {
+      this.nameInput.focus();
+    }
+  }
 
-	deleteItem = (e) => {
-		e.preventDefault();
+  render() {
+    const isDoneClassName = this.props.item.isDone ? "itemLabel listItemDone" : "itemLabel listItemNotDone";
+    return (
+      <li className="myListItem">
+        <input className={isDoneClassName} type="text" value={this.state.editedItemValue}
+          autoFocus={this.state.isEditingDisabled} disabled={this.state.isEditingDisabled} onChange={this.updateEnteredItemValue}
+          ref={input => { this.nameInput = input;}}/>
+        {
+          this.state.isEditingDisabled
+          ? <button className="actionButton editButton" onClick={this.editItem}></button>
+          : <button className="actionButton saveButton" onClick={this.saveItem}></button>
+        }
+        <button className="actionButton doneTaskButton" onClick={this.handleToggleClick}/>
+        <button className="actionButton deleteButton" onClick={this.deleteItem}/>
+      </li>
+    );
+  }
 
-		this.props.deleteItem(this.itemIndex);
-	};
+  deleteItem = e => {
+    this.props.deleteItem(this.itemIndex);
+  };
 
-	handleToggleClick = () => {
-		if (!this.state.isEditingDisabled) {
-			this.setState(prevState => ({
-				isEditingDisabled: !prevState.isEditingDisabled
-			}));
-		}
+  handleToggleClick = () => {
+    if (!this.state.isEditingDisabled) {
+      this.setState(prevState => ({
+        isEditingDisabled: !prevState.isEditingDisabled
+      }));
+    }
 
-		this.props.markItem(this.props.itemIndex, this.props.item.isDone);
-	};
+    this.props.markItem(this.props.itemIndex, this.props.item.isDone);
+  };
 
-	updateEnteredItemValue = (e) => {
-		this.setState({ editedItemValue: e.target.value });
-	};
+  updateEnteredItemValue = e => {
+    this.setState({editedItemValue: e.target.value});
+  };
+  
+  editItem = () => {
+    this.setState(prevState => ({
+      isEditingDisabled: !prevState.isEditingDisabled
+    }));
+  };
+  
+  saveItem = () => {
 
-	editItem = () => {
-		this.setState(prevState => ({
-			isEditingDisabled: !prevState.isEditingDisabled
-		}));
-	};
+    this.setState(prevState => ({
+      isEditingDisabled: !prevState.isEditingDisabled
+    }));
 
-	saveItem = () => {
+    if (this.state.editedItemValue.trim() === this.props.item.name) {
+      console.log("String is not updated");
+      return;
+    }
 
-		this.setState(prevState => ({
-			isEditingDisabled: !prevState.isEditingDisabled
-		}));
-
-		if (this.state.editedItemValue.trim() === this.props.item.name) {
-			console.log("String is not updated");
-			return;
-		}
-
-		if (this.state.editedItemValue.trim().length > 0) {
-			this.props.updateItem(this.props.itemIndex, this.state.editedItemValue);
-		} else {
-			this.setState({ editedItemValue: this.props.item.name });
-			alert("Please enter some task to add");
-		}
-	};
+    if (this.state.editedItemValue.trim().length > 0) {
+      this.props.updateItem(this.props.itemIndex, this.state.editedItemValue);
+    } else {
+      this.setState({editedItemValue: this.props.item.name});
+      alert("Please enter some task to add");
+    }
+  };
 }
