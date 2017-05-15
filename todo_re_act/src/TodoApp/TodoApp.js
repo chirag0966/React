@@ -17,7 +17,7 @@ class TodoApp extends Component {
     return (
       <div className="app">
         <div className="appHeader">
-          <h2>Todos'</h2>
+          <h2>Todos&#8217;</h2>
         </div>
         <p className="appIntro">To add, edit, mark done or delete a task.</p>
         <TodoAdd items={this.state.todoItems} addItem={this.addItem} />

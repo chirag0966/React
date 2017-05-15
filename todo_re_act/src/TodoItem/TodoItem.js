@@ -7,15 +7,8 @@ export default class TodoItem extends Component {
     super(props);
 
     this.state = {
-      editedItemValue: props.item.name,
       isEditingDisabled: true
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.item.name !== this.state.editedItemValue) {
-      this.setState({editedItemValue: nextProps.item.name});
-    }
   }
 
   componentDidUpdate() {
@@ -28,9 +21,9 @@ export default class TodoItem extends Component {
     const isDoneClassName = this.props.item.isDone ? "itemLabel listItemDone" : "itemLabel listItemNotDone";
     return (
       <li className="myListItem">
-        <input className={isDoneClassName} type="text" value={this.state.editedItemValue}
-          autoFocus={this.state.isEditingDisabled} disabled={this.state.isEditingDisabled} onChange={this.updateEnteredItemValue}
-          ref={input => { this.nameInput = input;}}/>
+        <input className={isDoneClassName} type="text" defaultValue={this.props.item.name}
+          autoFocus={this.state.isEditingDisabled} disabled={this.state.isEditingDisabled}
+          ref={input => this.nameInput = input}/>
         {
           this.state.isEditingDisabled
           ? <button className="actionButton editButton" onClick={this.editItem}></button>
@@ -55,10 +48,6 @@ export default class TodoItem extends Component {
 
     this.props.markItem(this.props.index, this.props.item.isDone);
   };
-
-  updateEnteredItemValue = e => {
-    this.setState({editedItemValue: e.target.value});
-  };
   
   editItem = () => {
     this.setState(prevState => ({
@@ -72,16 +61,16 @@ export default class TodoItem extends Component {
       isEditingDisabled: !prevState.isEditingDisabled
     }));
 
-    if (this.state.editedItemValue.trim() === this.props.item.name) {
+    if (this.nameInput.value.trim() === this.props.item.name) {
       console.log("String is not updated");
       return;
     }
 
-    if (this.state.editedItemValue.trim().length > 0) {
-      this.props.updateItem(this.props.index, this.state.editedItemValue);
+    if (this.nameInput.value.trim().length > 0) {
+      this.props.updateItem(this.props.index, this.nameInput.value);
     } else {
-      this.setState({editedItemValue: this.props.item.name});
       alert("Please enter some task to add");
+      this.nameInput.value = this.props.item.name;
     }
   };
 }
