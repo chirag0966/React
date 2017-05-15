@@ -13,16 +13,24 @@ class TodoApp extends Component {
     };
   }
 
+  render() {
+    return (
+      <div className="app">
+        <div className="appHeader">
+          <h2>Todos'</h2>
+        </div>
+        <p className="appIntro">To add, edit, mark done or delete a task.</p>
+        <TodoAdd items={this.state.todoItems} addItem={this.addItem} />
+        <TodoList items={this.state.todoItems} deleteItem={this.deleteItem} updateItem={this.updateItem} markItem={this.markItem} />
+      </div>
+    );
+  }
+
+  // Helper Methods
+  
   addItem = (todoItem) => {
     const oldTodoItems = this.state.todoItems;
-    oldTodoItems.push({name: todoItem, isDone: false});
-
-    this.setState({ todoItems: oldTodoItems });
-  };
-
-  deleteItem = (index) => {
-    const oldTodoItems = this.state.todoItems;
-    oldTodoItems.splice(index, 1);
+    oldTodoItems.push({ name: todoItem, isDone: false });
 
     this.setState({ todoItems: oldTodoItems });
   };
@@ -41,18 +49,13 @@ class TodoApp extends Component {
     this.setState({ todoItems: oldTodoItems });
   };
 
-  render() {
-    return (
-      <div className="app">
-        <div className="appHeader">
-          <h2>Todos'</h2>
-        </div>
-        <p className="appIntro">To add, edit, mark done or delete a task.</p>
-        <TodoAdd items={this.state.todoItems} addItem={this.addItem} />
-        <TodoList items={this.state.todoItems} deleteItem={this.deleteItem} updateItem={this.updateItem} markItem={this.markItem}/>
-      </div>
-    );
-  }
+  deleteItem = (index) => {
+    const oldTodoItems = this.state.todoItems;
+    oldTodoItems.splice(index, 1);
+
+    this.setState({ todoItems: oldTodoItems });
+  };
+
 }
 
 export default TodoApp;

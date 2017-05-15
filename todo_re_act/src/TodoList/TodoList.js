@@ -5,7 +5,8 @@ import TodoItem from '../TodoItem/TodoItem.js';
 const TodoList = (props) => (
     <ul className="todo-list">{
         props.items.map((item, index) =>
-            <TodoItem key={index} index={index} item={item} deleteItem={props.deleteItem} updateItem={props.updateItem} markItem={props.markItem} />
+            // Pass props using ...(spread operator) as it is.
+            <TodoItem key={index} index={index} item={item} {...props} />
         )}
     </ul>
 );
