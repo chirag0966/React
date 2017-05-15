@@ -10,8 +10,6 @@ export default class TodoItem extends Component {
       editedItemValue: props.item.name,
       isEditingDisabled: true
     };
-
-    this.itemIndex = props.itemIndex;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +43,7 @@ export default class TodoItem extends Component {
   }
 
   deleteItem = e => {
-    this.props.deleteItem(this.itemIndex);
+    this.props.deleteItem(this.props.index);
   };
 
   handleToggleClick = () => {
@@ -55,7 +53,7 @@ export default class TodoItem extends Component {
       }));
     }
 
-    this.props.markItem(this.props.itemIndex, this.props.item.isDone);
+    this.props.markItem(this.props.index, this.props.item.isDone);
   };
 
   updateEnteredItemValue = e => {
@@ -80,7 +78,7 @@ export default class TodoItem extends Component {
     }
 
     if (this.state.editedItemValue.trim().length > 0) {
-      this.props.updateItem(this.props.itemIndex, this.state.editedItemValue);
+      this.props.updateItem(this.props.index, this.state.editedItemValue);
     } else {
       this.setState({editedItemValue: this.props.item.name});
       alert("Please enter some task to add");

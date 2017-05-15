@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './TodoList.css';
 import TodoItem from '../TodoItem/TodoItem.js';
 
-export default class TodoList extends Component {
+const TodoList = (props) => (
+    <ul className="todo-list">{
+        props.items.map((item, index) =>
+            <TodoItem key={index} index={index} item={item} deleteItem={props.deleteItem} updateItem={props.updateItem} markItem={props.markItem} />
+        )}
+    </ul>
+);
 
-    listItems() {
-    	console.log(this.props);
-        return this.props.items.map((item, index) =>
-            <TodoItem key={index} itemIndex={index} item={item}
-            deleteItem={this.props.deleteItem} updateItem={this.props.updateItem} 
-            markItem={this.props.markItem}/>);
-    }
-
-    render() {
-        return <ul className="todo-list">{this.listItems()}</ul>;
-    }
-}
+export default TodoList;
