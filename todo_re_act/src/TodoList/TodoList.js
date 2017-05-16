@@ -6,7 +6,7 @@ const TodoList = (props) => (
     <ul className="todo-list">{
         props.items.map((item, index) =>
             // Pass props using ...(spread operator) as it is.
-            <TodoItem key={index + item.name} index={index} item={item} {...props} />
+            <TodoItem key={item.id} item={item} updateTaskItemById={props.updateTaskItemById} deleteItemById={props.deleteItemById} />
         )}
     </ul>
 );
