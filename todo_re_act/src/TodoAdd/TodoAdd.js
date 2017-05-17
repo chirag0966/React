@@ -1,30 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../Actions/TodoActions';
 import './TodoAdd.css';
 
-class TodoAdd extends Component {
+let TodoAdd = ({ dispatch }) => {
 
-    addItem = (e) => {
-        e.preventDefault();
+    let inputTaskName
 
-        if (this.inputTaskName.value.trim().length > 0) {
-            this.props.addItem(this.inputTaskName.value.trim())
-            this.inputTaskName.value = '';
+    const addTodoItem = (e) => {
+        e.preventDefault()
+
+        const trimmedTaskName = inputTaskName.value.trim();
+
+        if (trimmedTaskName.length > 0) {
+            dispatch(addTodo(trimmedTaskName));
+            inputTaskName.value = '';
         } else {
             alert("Please enter some task to add");
         }
     };
 
-    render() {
-        return <form className="addItemForm">
-            <input
-                className="taskInput"
-                type="text"
-                placeholder="Task to do"
-                ref={(input) => this.inputTaskName = input}
-            ></input>
-            <button className="taskAddButton" type="submit" onClick={this.addItem}>+</button>
-        </form>
-    }
-}
+    return (
+        <div>
+            <form className="addItemForm" onSubmit={addTodoItem}>
+                <input className="taskInput" type="text" placeholder="Task to do"
+                    ref={node => { inputTaskName = node }} />
+                <button className="taskAddButton" type="submit">+</button>
+            </form>
+        </div>
+    )
+};
+TodoAdd = connect()(TodoAdd)
 
-export default TodoAdd;
+export default TodoAdd

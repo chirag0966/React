@@ -1,14 +1,22 @@
 import React from 'react';
-import './TodoList.css';
 import TodoItem from '../TodoItem/TodoItem.js';
+import { connect } from 'react-redux';
+import './TodoList.css';
 
-const TodoList = (props) => (
-    <ul className="todo-list">{
-        props.items.map((item, index) =>
-            // Pass props using ...(spread operator) as it is.
-            <TodoItem key={item.id} item={item} updateTaskItemById={props.updateTaskItemById} deleteItemById={props.deleteItemById} />
+let TodoList = (props) => {
+    return (<ul className="todo-list"> {
+        props.todoItems.map((item, index) =>
+            <TodoItem key={item.id} item={item} />
         )}
-    </ul>
-);
+    </ul>)
+};
+
+const mapStateToProps = (state) => {
+    return {
+        todoItems: state
+    }
+};
+
+TodoList = connect(mapStateToProps)(TodoList);
 
 export default TodoList;

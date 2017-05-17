@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { updateTodo, toggleTodo, deleteTodo } from '../Actions/TodoActions.js'
 import "./TodoItem.css";
 
-export default class TodoItem extends Component {
+class TodoItem extends Component {
 
   constructor(props) {
     super(props);
@@ -30,21 +32,17 @@ export default class TodoItem extends Component {
             : <button className="actionButton saveButton" onClick={this.saveItem}></button>
         }
         <button className="actionButton doneTaskButton" onClick={this.toggleIsDoneStatus} />
-        <button className="actionButton deleteButton" onClick={this.deleteItem} />
+        <button className="actionButton deleteButton" onClick={() => this.props.onDelete(this.props.item.id)} />
       </li>
     );
   }
-
-  deleteItem = () => {
-    this.props.deleteItemById(this.props.item.id);
-  };
 
   toggleIsDoneStatus = () => {
     if (!this.state.isEditingDisabled) {
       this.setState({ isEditingDisabled: true });
     }
 
-    this.props.updateTaskItemById(this.props.item.id, { isDone: !this.props.item.isDone });
+    this.props.onToggle(this.props.item.id);
   };
 
   editItem = () => {
@@ -61,10 +59,26 @@ export default class TodoItem extends Component {
     }
 
     if (this.nameInput.value.trim().length > 0) {
-      this.props.updateTaskItemById(this.props.item.id, { name: this.nameInput.value });
+      this.props.onUpdate(this.props.item.id, this.nameInput.value);
     } else {
       alert("Please enter some task to add");
       this.nameInput.value = this.props.item.name;
     }
   };
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggle: (id) => {
+      dispatch(toggleTodo(id))
+    },
+    onDelete: (id) => {
+      dispatch(deleteTodo(id))
+    },
+    onUpdate: (id, name) => {
+      dispatch(updateTodo(id, name))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TodoItem);
